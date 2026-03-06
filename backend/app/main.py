@@ -1,6 +1,10 @@
 from fastapi import FastAPI
 
+from app.routers import customer
+
 app = FastAPI(title="Customer Onboarding API")
+
+app.include_router(customer.router)
 
 
 @app.get("/")

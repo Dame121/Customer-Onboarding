@@ -11,3 +11,4 @@ class Customer(Base):
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     gstin: Mapped[str] = mapped_column(String(15), unique=True, nullable=False)
+    password: Mapped[str] = mapped_column(String(255), nullable=False)

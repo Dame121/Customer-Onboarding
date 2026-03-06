@@ -3,9 +3,10 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
+from app.deps import get_current_customer
 from app.models.customer import Customer
-from app.schemas.customer import CustomerCreate, CustomerResponse
-from app.security import hash_password
+from app.schemas.customer import CustomerCreate, CustomerLogin, CustomerResponse, TokenResponse
+from app.security import hash_password, verify_password, create_access_token
 
 router = APIRouter(prefix="/customers", tags=["Customers"])
 
@@ -33,3 +34,20 @@ async def register_customer(customer: CustomerCreate, db: AsyncSession = Depends
     await db.refresh(new_customer)
 
     return new_customer
+
+
+@router.post("/login", response_model=TokenResponse)
+async def login_customer(credentials: CustomerLogin, db: AsyncSession = Depends(get_db)):
+    result = await db.execute(select(Customer).where(Customer.email == credentials.email))
+    customer = result.scalar_one_or_none()
+
+    if not customer or not verify_password(credentials.password, customer.password):
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+
+    token = create_access_token({"sub": str(customer.id)})
+    return {"access_token": token, "token_type": "bearer"}
+
+
+@router.get("/profile", response_model=CustomerResponse)
+async def get_profile(customer: Customer = Depends(get_current_customer)):
+    return customer

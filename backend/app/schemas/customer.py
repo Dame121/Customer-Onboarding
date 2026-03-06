@@ -8,6 +8,16 @@ class CustomerCreate(BaseModel):
     password: str
 
 
+class CustomerLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+
 class CustomerResponse(BaseModel):
     id: int
     name: str

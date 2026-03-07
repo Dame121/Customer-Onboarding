@@ -15,5 +15,6 @@ API.interceptors.request.use((config) => {
 export const registerCustomer = (data) => API.post('/customers/register', data);
 export const loginCustomer = (data) => API.post('/customers/login', data);
 export const getProfile = () => API.get('/customers/profile');
+export const getAllCustomers = () => API.get('/customers/all');
 
 export default API;

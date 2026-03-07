@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { getProfile } from '../api';
 
 export default function Dashboard() {
@@ -47,6 +47,7 @@ export default function Dashboard() {
         </div>
       </div>
       <button onClick={handleLogout} className="logout-btn">Logout</button>
+      <p className="link"><Link to="/admin">View Admin Dashboard</Link></p>
     </div>
   );
 }

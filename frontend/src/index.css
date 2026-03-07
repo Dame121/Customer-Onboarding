@@ -134,3 +134,49 @@ button:disabled {
 .logout-btn:hover {
   background: #b71c1c;
 }
+
+.admin-container {
+  background: #fff;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.admin-container h2 {
+  font-size: 1.4rem;
+  margin-bottom: 4px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.admin-table th {
+  background: #f0f2f5;
+  font-weight: 600;
+  color: #555;
+}
+
+.admin-table tr:hover {
+  background: #f8f9fa;
+}
+
+.admin-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+}

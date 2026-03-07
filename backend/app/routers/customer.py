@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -51,3 +53,12 @@ async def login_customer(credentials: CustomerLogin, db: AsyncSession = Depends(
 @router.get("/profile", response_model=CustomerResponse)
 async def get_profile(customer: Customer = Depends(get_current_customer)):
     return customer
+
+
+@router.get("/all", response_model=List[CustomerResponse])
+async def get_all_customers(
+    _current_user: Customer = Depends(get_current_customer),
+    db: AsyncSession = Depends(get_db),
+):
+    result = await db.execute(select(Customer))
+    return result.scalars().all()

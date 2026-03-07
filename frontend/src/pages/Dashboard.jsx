@@ -5,7 +5,6 @@ import { getProfile } from '../api';
 export default function Dashboard() {
   const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
-  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -25,8 +24,13 @@ export default function Dashboard() {
     navigate('/login');
   };
 
-  if (error) return <div className="error">{error}</div>;
-  if (!profile) return <div className="form-container"><p>Loading...</p></div>;
+  if (!profile) {
+    return (
+      <div className="loading">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="form-container">

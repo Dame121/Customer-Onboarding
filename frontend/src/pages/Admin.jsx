@@ -22,12 +22,20 @@ export default function Admin() {
     fetchCustomers();
   }, [navigate]);
 
-  if (loading) return <div className="form-container"><p>Loading...</p></div>;
+  if (loading) {
+    return (
+      <div className="loading">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="admin-container">
       <h2>Admin Dashboard</h2>
       <p className="subtitle">All Registered Users ({customers.length})</p>
+
+      {/* Desktop table */}
       <div className="table-wrapper">
         <table className="admin-table">
           <thead>
@@ -49,12 +57,34 @@ export default function Admin() {
             ))}
             {customers.length === 0 && (
               <tr>
-                <td colSpan="4" style={{ textAlign: 'center' }}>No users registered yet</td>
+                <td colSpan="4" style={{ textAlign: 'center', color: '#888' }}>No users registered yet</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
+
+      {/* Mobile cards */}
+      <div className="mobile-cards">
+        {customers.map((c) => (
+          <div className="mobile-card" key={c.id}>
+            <div className="mobile-card-row">
+              <span className="label">Name</span>
+              <span>{c.name}</span>
+            </div>
+            <div className="mobile-card-row">
+              <span className="label">Email</span>
+              <span>{c.email}</span>
+            </div>
+            <div className="mobile-card-row">
+              <span className="label">GSTIN</span>
+              <span>{c.gstin}</span>
+            </div>
+          </div>
+        ))}
+        {customers.length === 0 && <p style={{ textAlign: 'center', color: '#888' }}>No users registered yet</p>}
+      </div>
+
       <div className="admin-actions">
         <Link to="/dashboard"><button>My Profile</button></Link>
       </div>

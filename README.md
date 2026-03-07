@@ -54,35 +54,35 @@ A full-stack **Customer Onboarding** application built for customs brokers to re
 │                        CLIENT (Browser)                        │
 │                                                                │
 │   React 18 + Vite          React Router DOM 6                  │
-│   ┌──────────┐  ┌──────────┐  ┌───────────┐  ┌──────────┐    │
-│   │ Register │  │  Login   │  │ Dashboard │  │  Admin   │    │
-│   │  Page    │  │  Page    │  │   Page    │  │  Page    │    │
-│   └────┬─────┘  └────┬─────┘  └─────┬─────┘  └────┬─────┘    │
-│        │              │              │              │           │
-│        └──────────────┴──────────┬───┴──────────────┘           │
-│                                  │                              │
-│                        Axios HTTP Client                        │
-│                   (Bearer Token Interceptor)                    │
+│   ┌──────────┐  ┌──────────┐  ┌───────────┐  ┌──────────┐      │
+│   │ Register │  │  Login   │  │ Dashboard │  │  Admin   │      │
+│   │  Page    │  │  Page    │  │   Page    │  │  Page    │      │
+│   └────┬─────┘  └────┬─────┘  └─────┬─────┘  └────┬─────┘      │
+│        │              │              │              │          │
+│        └──────────────┴──────────┬───┴──────────────┘          │
+│                                  │                             │
+│                        Axios HTTP Client                       │
+│                   (Bearer Token Interceptor)                   │
 └──────────────────────────────────┬──────────────────────────────┘
                                    │  HTTP/JSON
                                    ▼
 ┌──────────────────────────────────────────────────────────────────┐
-│                    BACKEND (FastAPI Server)                       │
+│                    BACKEND (FastAPI Server)                      │
 │                                                                  │
 │  ┌──────────────────────────────────────────────────────────┐    │
-│  │                    CORS Middleware                        │    │
-│  │              (Allow: localhost:5173)                      │    │
+│  │                    CORS Middleware                       │    │
+│  │              (Allow: localhost:5173)                     │    │
 │  └──────────────────────────┬───────────────────────────────┘    │
 │                             │                                    │
 │  ┌──────────────────────────▼───────────────────────────────┐    │
-│  │                   Router: /customers                      │    │
-│  │                                                           │    │
-│  │  POST /register  ──→  Validate → Hash PW → Save to DB    │    │
-│  │  POST /login     ──→  Verify PW → Generate JWT Token      │    │
-│  │  GET  /profile   ──→  [Auth] → Return current user        │    │
-│  │  GET  /all       ──→  [Auth] → Return all customers       │    │
-│  └──────────┬────────────────────────────────┬───────────────┘    │
-│             │                                │                    │
+│  │                   Router: /customers                      │   │
+│  │                                                           │   │
+│  │  POST /register  ──→  Validate → Hash PW → Save to DB     │   │
+│  │  POST /login     ──→  Verify PW → Generate JWT Token      │   │
+│  │  GET  /profile   ──→  [Auth] → Return current user        │   │
+│  │  GET  /all       ──→  [Auth] → Return all customers       │   │
+│  └──────────┬────────────────────────────────┬───────────────┘   │
+│             │                                │                   │
 │  ┌──────────▼──────────┐      ┌──────────────▼───────────────┐   │
 │  │  Security Layer     │      │   Dependency Injection       │   │
 │  │  • bcrypt hashing   │      │   • get_db (async session)   │   │
@@ -90,15 +90,15 @@ A full-stack **Customer Onboarding** application built for customs brokers to re
 │  │  • Token validation │      │     (Bearer token → user)    │   │
 │  └─────────────────────┘      └──────────────────────────────┘   │
 │                                           │                      │
-│                    ┌──────────────────────▼───────────────┐       │
-│                    │      SQLAlchemy Async ORM            │       │
-│                    │      (AsyncSession + asyncpg)        │       │
-│                    └──────────────────────┬───────────────┘       │
+│                    ┌──────────────────────▼───────────────┐      │
+│                    │      SQLAlchemy Async ORM            │      │
+│                    │      (AsyncSession + asyncpg)        │      │
+│                    └──────────────────────┬───────────────┘      │
 └───────────────────────────────────────────┬──────────────────────┘
                                             │  TCP/5432
                                             ▼
                               ┌──────────────────────────┐
-                              │     PostgreSQL 17         │
+                              │     PostgreSQL 17        │
                               │                          │
                               │  Table: customers        │
                               │  ├─ id (PK, serial)      │

@@ -248,7 +248,6 @@ Managed via **Alembic** async migrations:
 
 ## 📸 Screenshots
 
-> Save your screenshots in the `screenshots/` folder and they'll render below.
 
 ### Registration Page
 ![Registration Page](screenshots/register.png)
